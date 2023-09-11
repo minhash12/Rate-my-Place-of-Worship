@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+resource_dir="./src/main/resources"
+
+echo "Setting up rate my place of worship micro service..."
+
+
+# create {{snakeCase serviceName}}_dev db
+if createdb rmpw_dev; then
+    echo "Database rmpw_dev has been created."
+fi
+
+
+# create application-local.yml
+if cp "${resource_dir}/application-dev.yml" "${resource_dir}/application-local.yml"; then
+    echo "application-local.yml has been created."
+fi

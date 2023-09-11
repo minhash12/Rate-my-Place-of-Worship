@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <springProfile name="json-logging">
+        <appender name="APPLICATION" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="rmpw.JsonLayoutWithCorrelationData">
+                    <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</timestampFormat>
+                    <timestampFormatTimezoneId>Etc/UTC</timestampFormatTimezoneId>
+                    <appendLineSeparator>true</appendLineSeparator>
+                    <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                        <prettyPrint>false</prettyPrint>
+                    </jsonFormatter>
+                </layout>
+            </encoder>
+        </appender>
+    </springProfile>
+    <springProfile name="!json-logging">
+        <appender name="APPLICATION" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %magenta([%thread]) %cyan(%X{request_id}) %highlight(%-5level) %logger.%M - %msg%n</pattern>
+            </encoder>
+        </appender>
+    </springProfile>
+
+    <logger name="rmpw" level="info" />
+    <logger name="org.flywaydb" level="INFO"/>
+
+    <root level="warn">
+        <appender-ref ref="APPLICATION"/>
+    </root>
+</configuration>

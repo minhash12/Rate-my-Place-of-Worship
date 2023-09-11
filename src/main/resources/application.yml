@@ -1,0 +1,17 @@
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus, metrics, health"
+
+spring:
+  jpa:
+    open-in-view: false
+    generate-ddl: false
+    show-sql: true
+
+google:
+  api:
+    key: AIzaSyBb0MPVgBkstP6RN29bTRWVhMfDUP6hdrM

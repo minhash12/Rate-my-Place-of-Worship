@@ -1,0 +1,17 @@
+management:
+  server:
+    port: 8051
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus, metrics, health"
+
+server:
+  port: 8080
+
+cors:
+  originPatterns: "http://localhost:3000"
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rmpw_dev
